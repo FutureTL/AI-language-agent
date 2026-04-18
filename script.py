@@ -5,6 +5,7 @@ import collections
 from pywhispercpp.model import Model
 
 from llmbrain import LLMBrain
+from tts import speak
 
 # ---------------- CONFIG ----------------
 SAMPLE_RATE = 16000
@@ -18,7 +19,7 @@ SILENCE_LIMIT_SEC = 1.2
 # ---------------------------------------
 
 vad = webrtcvad.Vad(VAD_MODE)
-model = Model("tiny")  # use tiny for faster testing
+model = Model("small")  # use tiny for faster testing
 llmbrain = LLMBrain()
 
 audio_buffer = []
@@ -91,7 +92,7 @@ if audio_buffer:
 
     print("🧠 Transcribing...")
 
-    segments = model.transcribe(full_audio)
+    segments = model.transcribe(full_audio, language= "auto")
     user_text = " ".join([seg.text for seg in segments])
 
     print("\n📝 Transcription:")
@@ -101,6 +102,7 @@ if audio_buffer:
     # feed this user input to the brain llm model
     response = llmbrain.generate_response(user_text)
     print("AI response: ", response)
+    speak(response)
 
 else:
     print("⚠️ No speech detected")

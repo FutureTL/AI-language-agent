@@ -7,7 +7,7 @@
 - We used ffmpeg that converts audio file formats.
 - we fed this audio file to whisper.cpp and it produced correct response. For testing its accuracy I had added 'aaaa hmmm' sounds like we humans normally do while speaking. The observation is : 'hmm..' sound got completely removed while for the 'aaa...' sound 'an' got added as a word. 
 
-- ------------Step 2-------
+- ------------Step 2----------------
 - Now we want to directly capture audio and produce the output using whisper without having to first manually generate an audio file.
 - We are using sounddevice module for that.
 - python -m pip install sounddevice
@@ -60,3 +60,11 @@
                             "You have to help in learning the language for a beginner. "
                             "Keep responses short and simple. "
 - This was clearly not sufficient because even while having converstaions with the agent I told it multiple times that I dont understand much spanish, and I also told which spanish words I know, yet it produced results in spanish, rather I wanted it to mix spanish and english. Also, the mistakes in transcription could have resulted in model not understanding my requests correctly.( we need to further investigate).
+
+- I switched to "small" model and it works better than "tiny". 4
+- The prompt in the system role was also improved to make the ai answer more user friendly and to make sure it doesn't speak too much in spanish, as user is at beginner level. 
+
+- --------------------------------STEP4 : Adding TTS(TEXT TO SPEECH) -------------------
+
+- We have used a basic tts converter - pyttsx3. Its special feature is that it works offline. 
+- But conversion is very basic and the voice sounds very robotic. It even says dot(.) for full stops that come. 

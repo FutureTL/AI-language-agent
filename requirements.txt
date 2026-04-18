@@ -3,3 +3,4 @@ webrtcvad
 sounddevice
 pywhispercpp
 requests
+pyttsx3
