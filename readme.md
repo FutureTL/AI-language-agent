@@ -45,3 +45,18 @@
 - Mic → VAD → numpy array → whisper
 
 - full_audio → pass to whisper wrapper(pywhispercpp)
+
+- Observations: Pronounication errors are there, but they can be minimized by speaking clearly and loud. As for noise- I have a ceiling fan running in the background, yet it didn't add to any errors. While speaking I intentionally added "aaaaa.." and "hmm..' sounds, and they are ignored mostly. It was only in one case that I saw the word "and" added extra for the "aaa.." sound I had added. 
+
+- -----------------STEP 3 - Interacting with an LLM ---------------------------------
+
+- ADDING THE BRAIN LAYER: I am using Mistral model provided by Ollama. I downloaded Ollama and then did an - ollama launch mistral. 
+- The idea is once the text by the user has been transcribed, we feed that into the llm, and generate a response, which is right now shown back to the user in text format. Soon, we will add another layer of text to speech system (TTS). 
+
+- Observations: 
+1. When I spoke in spanish, the errors in transcription increased significantly, is it was not able to recognise what I was speaking. Potential cause of this error could be that I am using tiny model from pywhispercpp which might now know that which langauge is being spoken( we will further investigate this to find out actual cause).
+2. I has instructed the llm with the following system prompt:
+- "You are a helpful spanish conversation partner and teacher. "
+                            "You have to help in learning the language for a beginner. "
+                            "Keep responses short and simple. "
+- This was clearly not sufficient because even while having converstaions with the agent I told it multiple times that I dont understand much spanish, and I also told which spanish words I know, yet it produced results in spanish, rather I wanted it to mix spanish and english. Also, the mistakes in transcription could have resulted in model not understanding my requests correctly.( we need to further investigate).

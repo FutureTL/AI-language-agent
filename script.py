@@ -4,6 +4,8 @@ import webrtcvad
 import collections
 from pywhispercpp.model import Model
 
+from llmbrain import LLMBrain
+
 # ---------------- CONFIG ----------------
 SAMPLE_RATE = 16000
 CHANNELS = 1
@@ -11,12 +13,13 @@ FRAME_DURATION_MS = 30
 FRAME_SIZE = int(SAMPLE_RATE * FRAME_DURATION_MS / 1000)
 
 VAD_MODE = 2
-SILENCE_LIMIT_SEC = 0.8
+SILENCE_LIMIT_SEC = 1.2
 
 # ---------------------------------------
 
 vad = webrtcvad.Vad(VAD_MODE)
 model = Model("tiny")  # use tiny for faster testing
+llmbrain = LLMBrain()
 
 audio_buffer = []
 silence_buffer = collections.deque(
@@ -89,10 +92,15 @@ if audio_buffer:
     print("🧠 Transcribing...")
 
     segments = model.transcribe(full_audio)
+    user_text = " ".join([seg.text for seg in segments])
 
     print("\n📝 Transcription:")
     for seg in segments:
         print("👉", seg.text)
+    
+    # feed this user input to the brain llm model
+    response = llmbrain.generate_response(user_text)
+    print("AI response: ", response)
 
 else:
     print("⚠️ No speech detected")
