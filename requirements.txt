@@ -1,0 +1,4 @@
+setuptools
+webrtcvad
+sounddevice
+pywhispercpp

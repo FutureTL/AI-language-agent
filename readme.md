@@ -1,3 +1,8 @@
+- Step by step guide to follow:
+1. setup the virtual environment.
+- for that run the command in the terminal- python -m venv venv
+- for windows: venv\Scripts\activate    -- this will activate the virtual environment
+
 - We are testing whisper.cpp. We started with taking an audio file converting it to the right format which is WAV , 16KHz, monochannel as this is the required format for whister.cpp.
 - We used ffmpeg that converts audio file formats.
 - we fed this audio file to whisper.cpp and it produced correct response. For testing its accuracy I had added 'aaaa hmmm' sounds like we humans normally do while speaking. The observation is : 'hmm..' sound got completely removed while for the 'aaa...' sound 'an' got added as a word. 
@@ -31,3 +36,12 @@
 - We will be using WEBRTC VAD - real time algorithm that processes incoming audio to determine if it contains human speech or not.
 
 - MIC -> indata -> convert format to int 16 as needed by webrtc vad -> vad check for speech chunk 
+
+
+- We now use a wrapper pywhispercpp because our code is in python, and whisper.cpp is in C++. 
+
+- This pywhispercpp will load a model into memory. This model can by tiny, small, large etc and it matters because it will determine how much time it takes, and hardware also. 
+
+- Mic → VAD → numpy array → whisper
+
+- full_audio → pass to whisper wrapper(pywhispercpp)
