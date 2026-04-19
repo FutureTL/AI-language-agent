@@ -68,3 +68,29 @@
 
 - We have used a basic tts converter - pyttsx3. Its special feature is that it works offline. 
 - But conversion is very basic and the voice sounds very robotic. It even says dot(.) for full stops that come. 
+
+- 19 april 2026
+- Today, I started a fresh with the agent. I observed that the answer it gave me is better. whisper was able to detect the language also as spanish. I will continue the conversation to see if it gets worse with time due to memory issue or remains same or improves.
+
+- 2nd time transcription was perfect I said- hola. como estas? tiene manzanas- perfectly transcribed
+- The llm layer takes a lot of time 15-20 secs and this time increases if audio input is more.
+- the agent voice is robotic and it is pronouncing the spanish words as english words. this needs improvement. also in previous reply it told me to reply with estoy bein which means - i am well, and had said we will continue a conversation if I say this , but in the next reply it forgot about this and again started from:
+- (
+- AI speaking:   Hola! I'm glad to be your Spanish conversation partner. Let's start! What words or phrases do you already know? I'll respond using only the words and phrases you provide, and I'll explain new ones when necessary.
+
+Here are a few common Spanish phrases:
+- Hola (Hello)
+- ¿Cómo estás? (How are you?)
+- Estoy bien, gracias. (I'm fine, thank you.)
+- Por favor (Please)
+- Gracias (Thank you)
+- Lo siento (I'm sorry)
+- Sí (Yes)
+
+- )
+
+- ----------------------------------STEP 5- Building a continuous conversation loop-------------------
+
+- adding while loop and put code in it and an exit statement so code will exist only when user says so
+
+- interesting observation is that whisper cannot understand spanish and english today, it is detecting one language only and then does transcription based on it.because I started with spanish and later said some english words and it transacribed it completely in spanish

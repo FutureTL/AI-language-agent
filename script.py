@@ -22,68 +22,73 @@ vad = webrtcvad.Vad(VAD_MODE)
 model = Model("small")  # use tiny for faster testing
 llmbrain = LLMBrain()
 
-audio_buffer = []
-silence_buffer = collections.deque(
-    maxlen=int(SILENCE_LIMIT_SEC * 1000 / FRAME_DURATION_MS)
-)
-
-recording = False
-stop_recording = False  # 🔥 NEW FLAG
-
-
 def float_to_pcm16(audio):
     audio = np.clip(audio, -1, 1)
     return (audio * 32767).astype(np.int16)
 
+while True:
 
-def callback(indata, frames, time, status):
-    global recording, stop_recording
+    audio_buffer = []
+    silence_buffer = collections.deque(
+        maxlen=int(SILENCE_LIMIT_SEC * 1000 / FRAME_DURATION_MS)
+    )
 
-    if status:
-        print("⚠️", status)
-
-    pcm16 = float_to_pcm16(indata[:, 0])
-    pcm_bytes = pcm16.tobytes()
-
-    is_speech = vad.is_speech(pcm_bytes, SAMPLE_RATE)
-
-    if is_speech:
-        if not recording:
-            print("🟢 Speech started")
-            recording = True
-
-        audio_buffer.append(pcm16)
-        silence_buffer.clear()
-
-    else:
-        if recording:
-            silence_buffer.append(pcm16)
-
-            if len(silence_buffer) == silence_buffer.maxlen:
-                print("🔴 Speech ended")
-                stop_recording = True  # 🔥 STOP via flag
-            else:
-                audio_buffer.append(pcm16)
+    recording = False
+    stop_recording = False  # 🔥 NEW FLAG
 
 
-print("🎤 Listening... Speak something")
 
-with sd.InputStream(
-    samplerate=SAMPLE_RATE,
-    channels=CHANNELS,
-    blocksize=FRAME_SIZE,
-    callback=callback,
-):
-    while not stop_recording:
-        sd.sleep(100)
 
-print("✅ Exited audio stream")
+    def callback(indata, frames, time, status):
+        global recording, stop_recording
 
-# ---------------- PROCESS AUDIO ----------------
+        if status:
+            print("⚠️", status)
 
-print("📦 Audio buffer length:", len(audio_buffer))
+        pcm16 = float_to_pcm16(indata[:, 0])
+        pcm_bytes = pcm16.tobytes()
 
-if audio_buffer:
+        is_speech = vad.is_speech(pcm_bytes, SAMPLE_RATE)
+
+        if is_speech:
+            if not recording:
+                print("🟢 Speech started")
+                recording = True
+
+            audio_buffer.append(pcm16)
+            silence_buffer.clear()
+
+        else:
+            if recording:
+                silence_buffer.append(pcm16)
+
+                if len(silence_buffer) == silence_buffer.maxlen:
+                    print("🔴 Speech ended")
+                    stop_recording = True  # 🔥 STOP via flag
+                else:
+                    audio_buffer.append(pcm16)
+
+
+    print("🎤 Listening... Speak something")
+
+    with sd.InputStream(
+        samplerate=SAMPLE_RATE,
+        channels=CHANNELS,
+        blocksize=FRAME_SIZE,
+        callback=callback,
+    ):
+        while not stop_recording:
+            sd.sleep(100)
+
+    print("✅ Exited audio stream")
+
+    # ---------------- PROCESS AUDIO ----------------
+
+    print("📦 Audio buffer length:", len(audio_buffer))
+
+    if not audio_buffer:
+            print("⚠️ No speech detected, try again.")
+            continue
     full_audio = np.concatenate(audio_buffer)
 
     print("📦 Raw audio shape:", full_audio.shape)
@@ -99,10 +104,13 @@ if audio_buffer:
     for seg in segments:
         print("👉", seg.text)
     
+     # -------- EXIT CONDITION --------
+    if "exit" in user_text.lower():
+        print("👋 Exiting...")
+        break
+
     # feed this user input to the brain llm model
     response = llmbrain.generate_response(user_text)
     print("AI response: ", response)
     speak(response)
 
-else:
-    print("⚠️ No speech detected")
