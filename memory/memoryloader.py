@@ -4,7 +4,7 @@ import json
                     # dict-> JSON (json.dump)
 from datetime import datetime
 
-memory_path = "memory/structurememory.json"
+memory_path = "memory/structuredmemory.json"
 # varibale storing the memory json file path
 
 def load_memory():
@@ -30,4 +30,25 @@ def save_memory(memory):
     # this overwrites the entire file-> not append but full replace
     # json.dump means converting python dict-> json format ,
     # indent = 2 means make it pretty print
+
+
+def update_memory(existing_memory, new_data):
+    if not new_data:
+        return existing_memory
+
+    # --- Update profile ---
+    for key, value in new_data.get("profile", {}).items():
+        if value:
+            existing_memory["profile"][key] = value
+
+    # --- Update weak areas ---
+    new_weak = new_data.get("learning_state", {}).get("weak_areas", [])
+    existing_weak = existing_memory["learning_state"]["weak_areas"]
+
+    # merge without duplicates
+    existing_memory["learning_state"]["weak_areas"] = list(
+        set(existing_weak + new_weak)
+    )
+
+    return existing_memory
 

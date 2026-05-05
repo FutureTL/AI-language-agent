@@ -128,3 +128,10 @@ Here are a few common Spanish phrases:
 - json.load(f) that will load a json file f as python dictionary.
 
 - Till now our system is not updating when user gives input- we are not modifying the structuredmemory yet. But going forward, we need to parse the incoming user input and fill required details in memory.
+
+
+-  My initial observation with the model is that it seems that the prompt that we have written might not be working very properly because even though I mentioned that I know only a few words in Spanish and I mentioned those words also like hola, Como Estas, Aqui, Parque, Banco, Bano.
+
+👉 The model clearly does not understand that I am unable to have a proper conversation in Spanish and is repeating back in Spanish which obviously a user who has no knowledge of the language cannot understand. So our first demo I think is leaning more towards the failure side. 
+
+- What we have implemented in memory right now is a structured memory and we have a prompt that takes the user input also and if I look at my structured memory.json file it's updated at the data field is getting updated but the other fields that are supposed to take weak words or profile or the level or the language that the user is speaking in these fields are not getting updated.
