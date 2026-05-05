@@ -1,0 +1,22 @@
+{
+  "profile": {
+    "target_language": null,
+    "level": null,
+    "goal": null,
+    "native_language": null,
+    "preferences": {
+      "response_style": "short",
+      "correction_style": "after_sentence"
+    }
+  },
+
+  "learning_state": {
+    "weak_areas": [],
+    "recent_mistakes": [],
+    "words_learnt":[]
+  },
+
+  "meta": {
+    "last_updated": null
+  }
+}

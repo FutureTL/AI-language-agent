@@ -94,3 +94,37 @@ Here are a few common Spanish phrases:
 - adding while loop and put code in it and an exit statement so code will exist only when user says so
 
 - interesting observation is that whisper cannot understand spanish and english today, it is detecting one language only and then does transcription based on it.because I started with spanish and later said some english words and it transacribed it completely in spanish
+
+---------------------------------------Improving exisiting systems-------------------------------------
+- We have now completed round one of working on the project. Now, going forward we will be experimenting with every layer, and see what tweaks help us improve the performance of our voice agent.
+
+- The first layer is where we will again start with. I will first try medium level model of whisper.cpp and compare it with parakeet-v3 using NeMo library of Nvidia. This change will be in place of whisper.cpp which has its share of drawbacks as we know.
+
+- Obversations with medium model: I spoke in combined engish and spanish, beginning with spanish, yet the model has given 94% english probability. Transcription is taking more time. Is it because of my laptop/cpu? 
+- Medium is not really suitable to be run on laptop. It is slow. 
+- Lets try quantized version of small. 
+- small-q5_1 is just 181MB VS medium -> 1.3Gb
+- small-q8_0 is 252Mb
+- for my testing small , and quantized of it have been better than medium. Transcription is faster, accuracy- okaish- better judgement if we include metrics also, but that will be introduced later.
+
+- I was downloading the dependences for running parakeet and guys it has been 30 mins almost and it is still running. My laptop will explode. If I dont push changes for next 5 days, consider i am gone and the laptop took me to heaven.
+- I should accept it will not work on this laptop but I want to try it.
+- I accepted my defeat that model was too heavy, even dependencies were not getting fully downloaded, so rather than getting stuck, I move to the trying small-q8_0, and then whisper faster.
+
+- Right now, I will go with the small model, no quantized version of it because I feel I am purely speaking one language, it gives good transalation and is fast as well.
+
+- Now I will experiment with other models from ollama and compare their responses and response time with each other. 
+
+- One impt thing is, when we pull these models in ollama, they are getting stored in our stoarge(disk), so if we don't need and we should remove otherwise storage will get filled. To remove any model use:
+- ollama rm mistral
+
+- Lets now work with Qwen.
+
+-----------------------MEMORY MANAGEMENT---------------
+
+- Started with Structured memory
+
+- JSON in-built python module
+- json.load(f) that will load a json file f as python dictionary.
+
+- Till now our system is not updating when user gives input- we are not modifying the structuredmemory yet. But going forward, we need to parse the incoming user input and fill required details in memory.

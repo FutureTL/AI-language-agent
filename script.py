@@ -2,10 +2,13 @@ import sounddevice as sd
 import numpy as np
 import webrtcvad
 import collections
-from pywhispercpp.model import Model
-
+from pywhispercpp.model import Model 
+# this is a custome whisper wrapper that we were using to use whisper.cpp. 
+# # now I will use parakeet v3 in its place. 
+# import nemo.collections.asr as nemo_asr
 from llmbrain import LLMBrain
 from tts import speak
+
 
 # ---------------- CONFIG ----------------
 SAMPLE_RATE = 16000
@@ -20,6 +23,8 @@ SILENCE_LIMIT_SEC = 1.2
 
 vad = webrtcvad.Vad(VAD_MODE)
 model = Model("small")  # use tiny for faster testing
+# above we were loading a model from whisper.cpp, moving forward we will experiment with parakeet v3.
+# model = nemo_asr.models.ASRModel.from_pretrained("nvidia/parakeet-tdt-0.6b-v3")
 llmbrain = LLMBrain()
 
 def float_to_pcm16(audio):
@@ -97,12 +102,14 @@ while True:
 
     print("🧠 Transcribing...")
 
-    segments = model.transcribe(full_audio, language= "auto")
+    segments = model.transcribe(full_audio)
     user_text = " ".join([seg.text for seg in segments])
+    # user_text = " ".join(segments)
 
     print("\n📝 Transcription:")
     for seg in segments:
         print("👉", seg.text)
+    #     print("👉", seg)
     
      # -------- EXIT CONDITION --------
     if "exit" in user_text.lower():
