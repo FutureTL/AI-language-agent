@@ -33,22 +33,26 @@ def save_memory(memory):
 
 
 def update_memory(existing_memory, new_data):
-    if not new_data:
-        return existing_memory
+    slots = new_data["slots"]
 
-    # --- Update profile ---
-    for key, value in new_data.get("profile", {}).items():
-        if value:
-            existing_memory["profile"][key] = value
+    # profile updates
+    if slots["target_language"]:
+        existing_memory["profile"]["target_language"] = slots["target_language"]
 
-    # --- Update weak areas ---
-    new_weak = new_data.get("learning_state", {}).get("weak_areas", [])
-    existing_weak = existing_memory["learning_state"]["weak_areas"]
+    if slots["proficiency_level"]:
+        existing_memory["profile"]["level"] = slots["proficiency_level"]
 
-    # merge without duplicates
-    existing_memory["learning_state"]["weak_areas"] = list(
-        set(existing_weak + new_weak)
-    )
+    if slots["learning_goal"]:
+        existing_memory["profile"]["goal"] = slots["learning_goal"]
+
+    # weak areas
+    for weak_area in slots["weak_areas"]:
+
+        if weak_area not in existing_memory["learning_state"]["weak_areas"]:
+
+            existing_memory["learning_state"]["weak_areas"].append(
+                weak_area
+            )
 
     return existing_memory
 

@@ -135,3 +135,4 @@ Here are a few common Spanish phrases:
 👉 The model clearly does not understand that I am unable to have a proper conversation in Spanish and is repeating back in Spanish which obviously a user who has no knowledge of the language cannot understand. So our first demo I think is leaning more towards the failure side. 
 
 - What we have implemented in memory right now is a structured memory and we have a prompt that takes the user input also and if I look at my structured memory.json file it's updated at the data field is getting updated but the other fields that are supposed to take weak words or profile or the level or the language that the user is speaking in these fields are not getting updated.
+

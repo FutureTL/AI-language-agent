@@ -1,8 +1,8 @@
 {
   "profile": {
-    "target_language": null,
-    "level": null,
-    "goal": null,
+    "target_language": "thai",
+    "level": "absolute_beginner",
+    "goal": "travel_communication",
     "native_language": null,
     "preferences": {
       "response_style": "short",
@@ -10,12 +10,14 @@
     }
   },
   "learning_state": {
-    "weak_areas": [],
+    "weak_areas": [
+      "vocabulary"
+    ],
     "recent_mistakes": [],
     "words_learnt": []
   },
   "meta": {
     "last_updated": null,
-    "updated_at": "2026-05-05 22:41:04.107283"
+    "updated_at": "2026-05-09 23:09:20.713019"
   }
 }

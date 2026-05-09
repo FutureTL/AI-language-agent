@@ -2,11 +2,14 @@ import requests
 from memory.memoryloader import load_memory, update_memory, save_memory
 # earlier we had a system prompt that was static. But now, we have made it
 # dynamic.
-from memory.informationextraction import extract_memory
+# from memory.informationextraction import extract_memory- this was used earlier when we were directly extracting info from user input and passing it to system prompt generation. But now we have made the process more modular by creating separate functions for each step. So now we will be using this function in our llmbrain.py file to extract info and update memory.
+from memory.informationextraction import NLUProcessor
+
 
 class LLMBrain:
     def __init__(self):
         self.history = []
+        self.nlu = NLUProcessor()
 
     # we have generated a dynamic prompt to pass everytime we send user input
     def build_system_prompt(self, memory):
@@ -18,6 +21,7 @@ class LLMBrain:
 
     User profile:
     - Target language: {profile.get("target_language")}
+    - Native language: {profile.get("native_language")}
     - Level : {profile.get("level")}
     - Goal: {profile.get("goal")}
     - Native language: {profile.get("native_language")}
@@ -42,7 +46,8 @@ class LLMBrain:
 
         memory= load_memory()
 
-        extracted_new_data = extract_memory(user_input)
+        # extracted_new_data = extract_memory(user_input)
+        extracted_new_data = self.nlu.process(user_input)
 
         new_memory = update_memory(memory, extracted_new_data)
 
