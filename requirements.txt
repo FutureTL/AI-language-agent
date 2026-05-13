@@ -4,3 +4,9 @@ sounddevice
 pywhispercpp
 requests
 pyttsx3
+nemo-toolkit
+hydra-core
+lightning
+torch
+torchvision
+torchaudio

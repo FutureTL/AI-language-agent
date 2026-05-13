@@ -94,3 +94,78 @@ Here are a few common Spanish phrases:
 - adding while loop and put code in it and an exit statement so code will exist only when user says so
 
 - interesting observation is that whisper cannot understand spanish and english today, it is detecting one language only and then does transcription based on it.because I started with spanish and later said some english words and it transacribed it completely in spanish
+
+---------------------------------------Improving exisiting systems-------------------------------------
+- We have now completed round one of working on the project. Now, going forward we will be experimenting with every layer, and see what tweaks help us improve the performance of our voice agent.
+
+- The first layer is where we will again start with. I will first try medium level model of whisper.cpp and compare it with parakeet-v3 using NeMo library of Nvidia. This change will be in place of whisper.cpp which has its share of drawbacks as we know.
+
+- Obversations with medium model: I spoke in combined engish and spanish, beginning with spanish, yet the model has given 94% english probability. Transcription is taking more time. Is it because of my laptop/cpu? 
+- Medium is not really suitable to be run on laptop. It is slow. 
+- Lets try quantized version of small. 
+- small-q5_1 is just 181MB VS medium -> 1.3Gb
+- small-q8_0 is 252Mb
+- for my testing small , and quantized of it have been better than medium. Transcription is faster, accuracy- okaish- better judgement if we include metrics also, but that will be introduced later.
+
+- I was downloading the dependences for running parakeet and guys it has been 30 mins almost and it is still running. My laptop will explode. If I dont push changes for next 5 days, consider i am gone and the laptop took me to heaven.
+- I should accept it will not work on this laptop but I want to try it.
+- I accepted my defeat that model was too heavy, even dependencies were not getting fully downloaded, so rather than getting stuck, I move to the trying small-q8_0, and then whisper faster.
+
+- Right now, I will go with the small model, no quantized version of it because I feel I am purely speaking one language, it gives good transalation and is fast as well.
+
+- Now I will experiment with other models from ollama and compare their responses and response time with each other. 
+
+- One impt thing is, when we pull these models in ollama, they are getting stored in our stoarge(disk), so if we don't need and we should remove otherwise storage will get filled. To remove any model use:
+- ollama rm mistral
+
+- Lets now work with Qwen.
+
+-----------------------MEMORY MANAGEMENT---------------
+
+- Started with Structured memory
+
+- JSON in-built python module
+- json.load(f) that will load a json file f as python dictionary.
+
+- Till now our system is not updating when user gives input- we are not modifying the structuredmemory yet. But going forward, we need to parse the incoming user input and fill required details in memory.
+
+
+-  My initial observation with the model is that it seems that the prompt that we have written might not be working very properly because even though I mentioned that I know only a few words in Spanish and I mentioned those words also like hola, Como Estas, Aqui, Parque, Banco, Bano.
+
+👉 The model clearly does not understand that I am unable to have a proper conversation in Spanish and is repeating back in Spanish which obviously a user who has no knowledge of the language cannot understand. So our first demo I think is leaning more towards the failure side. 
+
+- What we have implemented in memory right now is a structured memory and we have a prompt that takes the user input also and if I look at my structured memory.json file it's updated at the data field is getting updated but the other fields that are supposed to take weak words or profile or the level or the language that the user is speaking in these fields are not getting updated.
+
+- 13/5/26
+- Today we are working on controlling our llm responses. What's not working in our direction right now is llm reponse being very flexible, almost not helping with any learning alot nor following the system prompt that we have defined where we have strictly instructed the llm to give short answers and as we expect the user to be an absolute beginner in target language,so we also had instructed the llm to use the native language of the user and intriduce very short phrases in target language. I am pasting the prompt here as an example: 
+- # we have generated a dynamic prompt to pass everytime we send user input
+    # def build_system_prompt(self, memory):
+    #     profile = memory["profile"]
+    #     learning = memory["learning_state"]
+
+    #     teaching_strategy_instructions = build_teaching_strategy(memory)
+
+    #     return f"""
+    # You are a helpful {profile.get("target_language")} language learning partner and teacher.
+
+    # User profile:
+    # - Target language: {profile.get("target_language")}
+    # - Native language: {profile.get("native_language")}
+    # - Level : {profile.get("level")}
+    # - Goal: {profile.get("goal")}
+    # - Native language: {profile.get("native_language")}
+
+    # Learning State:
+    # - Words learned : {learning.get("words_learnt")}
+    # - Weak areas : {learning.get("weak_areas")}
+
+    # Teaching Strategy:
+    # {teaching_strategy_instructions}
+
+    # """
+ - The problem can be solved by creating finite state machine of our system so  that intead of having one state where user gives some input and llm generates some random output, we have more control over what is being generated. This is the topic of dialogue state management and dynamic prompt orchestration. 
+ - we define different states and link different prompts to different states, rather than having one big prompt. Lets see if it works. Right now I have defined two states- introduction_phase where we expect the llm to introduce a single phrase to the user adn also give its translation in native language, something that we had intented to do from the very beginning. 
+ - And second phase, would be wait for user repetition.
+
+ - Now we have introduced some beginner phrases for introduction_phrase, and model has to select from it. we have introduced introduction_phrase prompt and then repetition prompt
+ 

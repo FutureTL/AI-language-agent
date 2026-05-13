@@ -1,0 +1,29 @@
+{
+  "profile": {
+    "target_language": "spanish",
+    "level": "beginner",
+    "goal": "travel_communication",
+    "native_language": "english",
+    "preferences": {
+      "response_style": "short",
+      "correction_style": "after_sentence"
+    }
+  },
+  "learning_state": {
+    "weak_areas": [
+      "vocabulary"
+    ],
+    "recent_mistakes": [],
+    "words_learnt": []
+  },
+  "conversation_state": {
+    "lesson_state": "introduce_phrase",
+    "current_phrase": null,
+    "phrase_index": 2,
+    "current_topic": ""
+  },
+  "meta": {
+    "last_updated": null,
+    "updated_at": "2026-05-13 22:57:53.601983"
+  }
+}
