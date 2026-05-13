@@ -136,3 +136,36 @@ Here are a few common Spanish phrases:
 
 - What we have implemented in memory right now is a structured memory and we have a prompt that takes the user input also and if I look at my structured memory.json file it's updated at the data field is getting updated but the other fields that are supposed to take weak words or profile or the level or the language that the user is speaking in these fields are not getting updated.
 
+- 13/5/26
+- Today we are working on controlling our llm responses. What's not working in our direction right now is llm reponse being very flexible, almost not helping with any learning alot nor following the system prompt that we have defined where we have strictly instructed the llm to give short answers and as we expect the user to be an absolute beginner in target language,so we also had instructed the llm to use the native language of the user and intriduce very short phrases in target language. I am pasting the prompt here as an example: 
+- # we have generated a dynamic prompt to pass everytime we send user input
+    # def build_system_prompt(self, memory):
+    #     profile = memory["profile"]
+    #     learning = memory["learning_state"]
+
+    #     teaching_strategy_instructions = build_teaching_strategy(memory)
+
+    #     return f"""
+    # You are a helpful {profile.get("target_language")} language learning partner and teacher.
+
+    # User profile:
+    # - Target language: {profile.get("target_language")}
+    # - Native language: {profile.get("native_language")}
+    # - Level : {profile.get("level")}
+    # - Goal: {profile.get("goal")}
+    # - Native language: {profile.get("native_language")}
+
+    # Learning State:
+    # - Words learned : {learning.get("words_learnt")}
+    # - Weak areas : {learning.get("weak_areas")}
+
+    # Teaching Strategy:
+    # {teaching_strategy_instructions}
+
+    # """
+ - The problem can be solved by creating finite state machine of our system so  that intead of having one state where user gives some input and llm generates some random output, we have more control over what is being generated. This is the topic of dialogue state management and dynamic prompt orchestration. 
+ - we define different states and link different prompts to different states, rather than having one big prompt. Lets see if it works. Right now I have defined two states- introduction_phase where we expect the llm to introduce a single phrase to the user adn also give its translation in native language, something that we had intented to do from the very beginning. 
+ - And second phase, would be wait for user repetition.
+
+ - Now we have introduced some beginner phrases for introduction_phrase, and model has to select from it. we have introduced introduction_phrase prompt and then repetition prompt
+ 

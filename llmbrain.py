@@ -4,6 +4,9 @@ from memory.memoryloader import load_memory, update_memory, save_memory
 # dynamic.
 # from memory.informationextraction import extract_memory- this was used earlier when we were directly extracting info from user input and passing it to system prompt generation. But now we have made the process more modular by creating separate functions for each step. So now we will be using this function in our llmbrain.py file to extract info and update memory.
 from memory.informationextraction import NLUProcessor
+from nlu.teachingstrategy import build_teaching_strategy
+from prompt.prompt import build_introduction_phase_prompt, build_repetition_phase_prompt
+from nlu.beginnerphrase import BEGINNER_PHRASES
 
 
 class LLMBrain:
@@ -11,31 +14,20 @@ class LLMBrain:
         self.history = []
         self.nlu = NLUProcessor()
 
-    # we have generated a dynamic prompt to pass everytime we send user input
-    def build_system_prompt(self, memory):
-        profile = memory["profile"]
-        learning = memory["learning_state"]
+    def current_phrase(self, memory):
+        phrase_index = memory["conversation_state"]["phrase_index"]
+        return BEGINNER_PHRASES[phrase_index]
+    
+    def move_to_next_phrase(self, memory):
+        phrase_index = memory["conversation_state"]["phrase_index"]
+        phrase_index+=1
+        # if phrase_index > len beginner phrases then why don't we use random rather than using order again
+        if(phrase_index >= len(BEGINNER_PHRASES)):
+            phrase_index = 0 
+        memory["conversation_state"]["phrase_index"] = phrase_index
 
-        return f"""
-    You are a helpful {profile.get("target_language")} language learning partner and teacher.
 
-    User profile:
-    - Target language: {profile.get("target_language")}
-    - Native language: {profile.get("native_language")}
-    - Level : {profile.get("level")}
-    - Goal: {profile.get("goal")}
-    - Native language: {profile.get("native_language")}
-
-    Learning State:
-    - Words learned : {learning.get("words_learnt")}
-    - Weak areas : {learning.get("weak_areas")}
-
-    Instructions:
-    - Keep the response very short and simple
-    - Don't use alot of new words at the same time
-    - Focus on weak areas when possible
-    - Use {profile.get("native_language")} if needed
-    """
+    
 
     # defined this function below
     def generate_response(self, user_input):
@@ -52,9 +44,19 @@ class LLMBrain:
         new_memory = update_memory(memory, extracted_new_data)
 
         save_memory(new_memory)
+        lesson_state = new_memory["conversation_state"]["lesson_state"]
+        training_language = new_memory["profile"]["target_language"]
+        current_phrase = self.current_phrase(new_memory)
 
-        system_prompt= self.build_system_prompt(memory)
+        if lesson_state == "introduce_phrase":
+   
+            system_prompt = build_introduction_phase_prompt(current_phrase)
 
+        elif lesson_state == "repetition_phase":
+            system_prompt = build_repetition_phase_prompt(current_phrase)
+
+        else:
+            system_prompt = "you are a helpful language learning assistant. Help the user learn spanish. "
         # what this message is made of ? it is made of system promt + history + new user input
         messages = [
                 {
@@ -82,6 +84,22 @@ class LLMBrain:
 
         self.history.append({"role": "user", "content": user_input})
         self.history.append({"role": "assistant", "content": reply})
+
+        if lesson_state == "introduce_phrase":
+
+            memory["conversation_state"]["lesson_state"] = (
+                "repetition_phase"
+            )
+
+        elif lesson_state == "repetition_phase":
+
+            memory["conversation_state"]["lesson_state"] = (
+                "introduce_phrase"
+            )
+
+            self.move_to_next_phrase(memory)
+        save_memory(memory)
+
 
         return reply
         

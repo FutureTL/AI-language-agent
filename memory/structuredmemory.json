@@ -1,9 +1,9 @@
 {
   "profile": {
-    "target_language": "thai",
-    "level": "absolute_beginner",
+    "target_language": "spanish",
+    "level": "beginner",
     "goal": "travel_communication",
-    "native_language": null,
+    "native_language": "english",
     "preferences": {
       "response_style": "short",
       "correction_style": "after_sentence"
@@ -16,8 +16,14 @@
     "recent_mistakes": [],
     "words_learnt": []
   },
+  "conversation_state": {
+    "lesson_state": "introduce_phrase",
+    "current_phrase": null,
+    "phrase_index": 2,
+    "current_topic": ""
+  },
   "meta": {
     "last_updated": null,
-    "updated_at": "2026-05-09 23:09:20.713019"
+    "updated_at": "2026-05-13 22:57:53.601983"
   }
 }
