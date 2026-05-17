@@ -1,14 +1,24 @@
 
-def build_introduction_phase_prompt( current_phrase):
+def build_introduction_phase_prompt(current_phrase):
+
     return f"""
-    Teach one beginner spanish{current_phrase}.
-    Rules:
-        - Return ONLY:
-            1. spanish phrase
-            2. Pronunciation
-            3. Give English meaning
-        - Keep response under 5 words.
-        - Do not introduce multiple phrases.
+        Generate a Spanish lesson snippet for an ABSOLUTE beginner.
+
+        Teach ONLY this phrase:
+
+        Spanish: {current_phrase["spanish"]}
+        Pronunciation: {current_phrase["pronunciation"]}
+        Meaning: {current_phrase["meaning"]}
+
+        Output format EXACTLY:
+
+        {current_phrase["spanish"]}
+        Pronunciation: {current_phrase["pronunciation"]}
+        Meaning: {current_phrase["meaning"]}
+
+        Can you say "{current_phrase["spanish"]}"?
+
+        Do not say anything else.
     """
 
 def build_repetition_phase_prompt(current_phrase):
