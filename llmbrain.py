@@ -16,15 +16,19 @@ class LLMBrain:
 
     def current_phrase(self, memory):
         phrase_index = memory["conversation_state"]["phrase_index"]
+        print("current phrase index is ", phrase_index)
+        print("current phrase is ", BEGINNER_PHRASES[phrase_index])
         return BEGINNER_PHRASES[phrase_index]
     
     def move_to_next_phrase(self, memory):
         phrase_index = memory["conversation_state"]["phrase_index"]
         phrase_index+=1
+        print("moving to next phrase index: ", phrase_index)
         # if phrase_index > len beginner phrases then why don't we use random rather than using order again
         if(phrase_index >= len(BEGINNER_PHRASES)):
             phrase_index = 0 
         memory["conversation_state"]["phrase_index"] = phrase_index
+        print("current phrase after moving to next is ", BEGINNER_PHRASES[phrase_index])
 
 
     
@@ -49,26 +53,34 @@ class LLMBrain:
         current_phrase = self.current_phrase(new_memory)
 
         if lesson_state == "introduce_phrase":
-   
+            print("current phrase being passed to prompt is ", current_phrase)
             system_prompt = build_introduction_phase_prompt(current_phrase)
 
         elif lesson_state == "repetition_phase":
+            print("current phrase being passed to prompt is ", current_phrase)
             system_prompt = build_repetition_phase_prompt(current_phrase)
 
         else:
             system_prompt = "you are a helpful language learning assistant. Help the user learn spanish. "
         # what this message is made of ? it is made of system promt + history + new user input
-        messages = [
-                {
-                    "role": "system",
-                    "content": system_prompt
+        # messages = [
+        #         {
+        #             "role": "system",
+        #             "content": system_prompt
 
-                } 
-        ] + self.history + [
-                {
-                    "role" : "user",
-                    "content": user_input
-                }
+        #         } 
+        # ] + self.history + [
+        #         {
+        #             "role" : "user",
+        #             "content": user_input
+        #         }
+        # ]
+        print("system prompt is ", system_prompt)
+        messages = [
+            {
+                "role": "system",
+                "content": system_prompt
+            }
         ]
 
         llm_response = requests.post(

@@ -169,3 +169,24 @@ Here are a few common Spanish phrases:
 
  - Now we have introduced some beginner phrases for introduction_phrase, and model has to select from it. we have introduced introduction_phrase prompt and then repetition prompt
  
+ - something very interesting happened that I have to note it. i had written a introducion phase prompt: 
+ - def build_introduction_phase_prompt( current_phrase):
+-   return f"""
+-   Teach spanish{current_phrase} only.
+-   Rules:
+-       - Return ONLY:
+-           1. spanish phrase {current_phrase}
+-           2. Pronunciation
+-           3. Give English meaning of this phrase
+-       - Do not introduce multiple phrases.
+-   """
+
+- And our llm response did get affected, but what did it output? not the {current_phrase} we are passing in the prompt above but its output is exact user input but translated to spanish. How interesting is that? What are we doing wrong that llm thought it is supposed to do this?
+- Is our prompt poorly designed as we are passing an object like this in current_phrase:
+{
+        "spanish": "Hola",
+        "pronunciation": "OH-la",
+        "meaning": "Hello"
+}
+
+- 2ND observation after changing prompt- the prompt was proabbly the problem because we changed it by separating out the 3 things-spanish word, pronunciation and meaning, and ai replied but still in spanish. we need to make it understand that it has to reply in user's native language because user is an absolute beginner.
