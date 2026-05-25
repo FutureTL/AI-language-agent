@@ -2,7 +2,7 @@
   "profile": {
     "target_language": "spanish",
     "level": "beginner",
-    "goal": "travel_communication",
+    "goal": "job_communication",
     "native_language": "english",
     "preferences": {
       "response_style": "short",
@@ -17,13 +17,18 @@
     "words_learnt": []
   },
   "conversation_state": {
-    "lesson_state": "introduce_phrase",
+    "lesson_state": "repetition_phase",
     "current_phrase": null,
-    "phrase_index": 2,
+    "phrase_index": 0,
     "current_topic": ""
+  },
+  "learner_progress": {
+    "mastered_chunks": [],
+    "current_chunk": "greeting_hello",
+    "current_domain": "greetings"
   },
   "meta": {
     "last_updated": null,
-    "updated_at": "2026-05-13 22:57:53.601983"
+    "updated_at": "2026-05-21 18:58:15.138644"
   }
 }

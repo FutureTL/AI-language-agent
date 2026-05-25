@@ -1,31 +1,34 @@
 
-def build_introduction_phase_prompt(current_phrase):
+def build_introduction_phase_prompt(current_chunk):
 
     return f"""
-        Generate a Spanish lesson snippet for an ABSOLUTE beginner.
+        You are teaching ONE beginner Spanish chunk.
 
-        Teach ONLY this phrase:
+        Phrase:
+        {current_chunk["text"]}
 
-        Spanish: {current_phrase["spanish"]}
-        Pronunciation: {current_phrase["pronunciation"]}
-        Meaning: {current_phrase["meaning"]}
+        Meaning:
+        {current_chunk["meaning"]}
 
-        Output format EXACTLY:
+        Pronunciation:
+        {current_chunk["pronunciation"]}
 
-        {current_phrase["spanish"]}
-        Pronunciation: {current_phrase["pronunciation"]}
-        Meaning: {current_phrase["meaning"]}
-
-        Can you say "{current_phrase["spanish"]}"?
-
-        Do not say anything else.
+        Rules:
+        - Teach ONLY this chunk
+        - Keep response under 30 words
+        - Ask learner to repeat it
+        - Do not introduce new phrases
     """
 
-def build_repetition_phase_prompt(current_phrase):
+def build_repetition_phase_prompt(current_chunk):
     return f"""
-        Ask the learner to repeat this phrase:
+        The learner is practicing this chunk:
 
-        {current_phrase}
+        {current_chunk["text"]}
 
-        Keep response under 10 words.
+        Rules:
+        - Ask learner to repeat the chunk
+        - Encourage learner briefly
+        - Keep response under 20 words
+        - Do not introduce new phrases
     """
