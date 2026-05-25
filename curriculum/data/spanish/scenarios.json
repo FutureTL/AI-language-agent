@@ -1,0 +1,472 @@
+[
+    {
+        "id": "travel_arrival",
+
+        "title": "Travel Arrival Journey",
+
+        "scenes": [
+
+            {
+                "id": "taxi_interaction",
+
+                "title": "Taxi Interaction",
+
+                "tasks": [
+
+                    {
+                        "id": "driver_interaction",
+
+                        "title": "Interaction with Taxi Driver",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "greet_driver",
+
+                                "chunks": [
+                                    "greeting_hello"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "request_ride",
+
+                                "chunks": [
+                                    "can_you_take_me",
+                                    "hotel_word"
+                                ]
+                            },
+
+                            {
+                                "step": 3,
+
+                                "goal": "ask_luggage",
+
+                                "chunks": [
+                                    "where_put"
+                                ]
+                            },
+
+                            {
+                                "step": 4,
+
+                                "goal": "ask_price",
+
+                                "chunks": [
+                                    "how_much_cost"
+                                ]
+                            },
+
+                            {
+                                "step": 5,
+
+                                "goal": "thank_driver",
+
+                                "chunks": [
+                                    "thank_you"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            {
+                "id": "hotel_checkin",
+
+                "title": "Hotel Checkin",
+
+                "tasks": [
+
+                    {
+                        "id": "checkin_greeting",
+
+                        "title": "Greeting Receptionist",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "greet_receptionist",
+
+                                "chunks": [
+                                    "greeting_hello"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "say_reservation",
+
+                                "chunks": [
+                                    "i_have",
+                                    "reservation_word"
+                                ]
+                            },
+
+                            {
+                                "step": 3,
+
+                                "goal": "say_name",
+
+                                "chunks": [
+                                    "my_name_is"
+                                ]
+                            }
+                        ]
+                    },
+
+                    {
+                        "id": "room_questions",
+
+                        "title": "Asking About Room",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "ask_room_location",
+
+                                "chunks": [
+                                    "where_is",
+                                    "my_room"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "ask_wifi",
+
+                                "chunks": [
+                                    "what_is",
+                                    "wifi_password"
+                                ]
+                            },
+
+                            {
+                                "step": 3,
+
+                                "goal": "ask_breakfast_time",
+
+                                "chunks": [
+                                    "when_is",
+                                    "breakfast_word"
+                                ]
+                            }
+                        ]
+                    },
+
+                    {
+                        "id": "request_help",
+
+                        "title": "Requesting Help",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "ask_help",
+
+                                "chunks": [
+                                    "need_help"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "ask_repeat",
+
+                                "chunks": [
+                                    "please_repeat"
+                                ]
+                            },
+
+                            {
+                                "step": 3,
+
+                                "goal": "thank_staff",
+
+                                "chunks": [
+                                    "thank_you"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "restaurant_visit",
+
+                "title": "Restaurant Visit",
+
+                "tasks": [
+
+                    {
+                        "id": "enter_restaurant",
+
+                        "title": "Entering Restaurant",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "greet_waiter",
+
+                                "chunks": [
+                                    "greeting_hello"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "ask_table",
+
+                                "chunks": [
+                                    "table_for_two"
+                                ]
+                            }
+                        ]
+                    },
+
+                    {
+                        "id": "ordering_food",
+
+                        "title": "Ordering Food",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "ask_menu",
+
+                                "chunks": [
+                                    "can_i_have",
+                                    "menu_word"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "order_food",
+
+                                "chunks": [
+                                    "i_want",
+                                    "food_item"
+                                ]
+                            },
+
+                            {
+                                "step": 3,
+
+                                "goal": "ask_water",
+
+                                "chunks": [
+                                    "i_want",
+                                    "water_word"
+                                ]
+                            }
+                        ]
+                    },
+
+                    {
+                        "id": "restaurant_preferences",
+
+                        "title": "Food Preferences",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "say_not_spicy",
+
+                                "chunks": [
+                                    "not_spicy"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "say_vegetarian",
+
+                                "chunks": [
+                                    "vegetarian_word"
+                                ]
+                            }
+                        ]
+                    },
+
+                    {
+                        "id": "paying_bill",
+
+                        "title": "Paying Bill",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "ask_bill",
+
+                                "chunks": [
+                                    "bill_please"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "thank_waiter",
+
+                                "chunks": [
+                                    "thank_you"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "asking_directions",
+
+                "title": "Asking Directions",
+
+                "tasks": [
+
+                    {
+                        "id": "find_place",
+
+                        "title": "Finding a Place",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "greet_person",
+
+                                "chunks": [
+                                    "excuse_me"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "ask_location",
+
+                                "chunks": [
+                                    "where_is",
+                                    "station_word"
+                                ]
+                            },
+
+                            {
+                                "step": 3,
+
+                                "goal": "thank_person",
+
+                                "chunks": [
+                                    "thank_you"
+                                ]
+                            }
+                        ]
+                    },
+
+                    {
+                        "id": "understanding_directions",
+
+                        "title": "Understanding Directions",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "understand_straight",
+
+                                "chunks": [
+                                    "go_straight"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "understand_left",
+
+                                "chunks": [
+                                    "turn_left"
+                                ]
+                            },
+
+                            {
+                                "step": 3,
+
+                                "goal": "understand_right",
+
+                                "chunks": [
+                                    "turn_right"
+                                ]
+                            }
+                        ]
+                    },
+
+                    {
+                        "id": "clarification",
+
+                        "title": "Clarifying Directions",
+
+                        "conversation_flow": [
+
+                            {
+                                "step": 1,
+
+                                "goal": "ask_repeat",
+
+                                "chunks": [
+                                    "please_repeat"
+                                ]
+                            },
+
+                            {
+                                "step": 2,
+
+                                "goal": "ask_slowly",
+
+                                "chunks": [
+                                    "speak_slowly"
+                                ]
+                            },
+
+                            {
+                                "step": 3,
+
+                                "goal": "say_understand",
+
+                                "chunks": [
+                                    "i_understand"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

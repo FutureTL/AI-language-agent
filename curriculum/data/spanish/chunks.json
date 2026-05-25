@@ -1,0 +1,302 @@
+[
+    {
+        "id": "greeting_hello",
+        "language": "spanish",
+        "text": "Hola",
+        "meaning": "Hello",
+        "pronunciation": "OH-la",
+        "domain": "greetings",
+        "communicative_function": "greeting",
+        "difficulty": 1,
+        "requires": []
+    },
+
+    {
+        "id": "intro_name",
+        "language": "spanish",
+        "text": "Me llamo...",
+        "meaning": "My name is...",
+        "pronunciation": "meh YAH-mo",
+        "domain": "introductions",
+        "communicative_function": "introduction",
+        "difficulty": 2,
+        "requires": [
+            "greeting_hello"
+        ]
+    },
+
+    {
+        "id": "where_is",
+        "language": "spanish",
+        "text": "¿Dónde está...?",
+        "meaning": "Where is...?",
+        "pronunciation": "DON-deh es-TAH",
+        "domain": "directions",
+        "communicative_function": "asking location",
+        "difficulty": 2,
+        "requires": [
+            "greeting_hello"
+        ]
+    },
+    {
+        "id": "hotel_word",
+        "language": "spanish",
+        "text": "el hotel",
+        "meaning": "the hotel",
+        "pronunciation": "el ho-TEL",
+        "domain": "travel",
+        "communicative_function": "place vocabulary",
+        "difficulty": 1,
+        "requires": []
+    },
+    {
+        "id": "excuse_me",
+        "language": "spanish",
+        "text": "Disculpe",
+        "meaning": "Excuse me",
+        "pronunciation": "dis-KUL-peh",
+        "domain": "politeness",
+        "communicative_function": "getting attention",
+        "difficulty": 1,
+        "requires": []
+    },
+    {
+        "id": "thank_you",
+        "language": "spanish",
+        "text": "Gracias",
+        "meaning": "Thank you",
+        "pronunciation": "GRA-see-as",
+        "domain": "politeness",
+        "communicative_function": "expressing gratitude",
+        "difficulty": 1,
+        "requires": []
+    },
+    {
+        "id": "need_help",
+        "language": "spanish",
+        "text": "¿Puede ayudarme?",
+        "meaning": "Can you help me?",
+        "pronunciation": "PWEH-deh ah-yoo-DAR-meh",
+        "domain": "",
+        "communicative_function": "",
+        "difficulty": 2,
+        "requires": []
+    },
+    {
+        "id": "can_you_take_me",
+
+        "type": "pattern_chunk",
+
+        "language": "spanish",
+
+        "text": "¿Puede llevarme...?",
+
+        "meaning": "Can you take me...?",
+
+        "pronunciation": "PWEH-deh yeh-VAR-meh",
+
+        "communicative_function": "requesting transport",
+
+        "difficulty": 3,
+
+        "requires": [
+            "greeting_hello"
+        ]
+    }, {
+        "id": "where_put",
+
+        "type": "pattern_chunk",
+
+        "language": "spanish",
+
+        "text": "¿Dónde pongo...?",
+
+        "meaning": "Where do I put...?",
+
+        "pronunciation": "DON-deh PON-go",
+
+        "communicative_function": "asking where to place something",
+
+        "difficulty": 3,
+
+        "requires": [
+            "greeting_hello"
+        ]
+    },
+     {
+        "id": "how_much_cost",
+
+        "type": "pattern_chunk",
+
+        "language": "spanish",
+
+        "text": "¿Cuánto cuesta?",
+
+        "meaning": "How much does it cost?",
+
+        "pronunciation": "KWAN-toh KWEHS-tah",
+
+        "communicative_function": "asking price",
+
+        "difficulty": 2,
+
+        "requires": []
+    },
+
+    {
+        "id": "my_luggage",
+
+        "type": "vocabulary_chunk",
+
+        "language": "spanish",
+
+        "text": "mi equipaje",
+
+        "meaning": "my luggage",
+
+        "pronunciation": "mee eh-kee-PAH-heh",
+
+        "communicative_function": "travel vocabulary",
+
+        "difficulty": 2,
+
+        "requires": []
+    },
+    {
+        "id": "i_have",
+
+        "type": "pattern_chunk",
+
+        "language": "spanish",
+
+        "text": "Tengo...",
+
+        "meaning": "I have...",
+
+        "pronunciation": "TEN-go",
+
+        "communicative_function": "stating possession",
+
+        "difficulty": 2,
+
+        "requires": []
+    },
+    {
+        "id": "reservation_word",
+
+        "type": "vocabulary_chunk",
+
+        "language": "spanish",
+
+        "text": "una reserva",
+
+        "meaning": "a reservation",
+
+        "pronunciation": "OO-na reh-SER-va",
+
+        "communicative_function": "hotel vocabulary",
+
+        "difficulty": 2,
+
+        "requires": []
+    },
+    {
+        "id": "my_name_is",
+
+        "type": "pattern_chunk",
+
+        "language": "spanish",
+
+        "text": "Me llamo...",
+
+        "meaning": "My name is...",
+
+        "pronunciation": "meh YAH-mo",
+
+        "communicative_function": "introducing yourself",
+
+        "difficulty": 2,
+
+        "requires": [
+            "greeting_hello"
+        ]
+    },
+    {
+        "id": "need_help",
+
+        "type": "pattern_chunk",
+
+        "language": "spanish",
+
+        "text": "Necesito ayuda",
+
+        "meaning": "I need help",
+
+        "pronunciation": "neh-seh-SEE-to ah-YOO-da",
+
+        "communicative_function": "asking for help",
+
+        "difficulty": 2,
+
+        "requires": []
+    },
+    {
+        "id": "please_repeat",
+
+        "type": "pattern_chunk",
+
+        "language": "spanish",
+
+        "text": "Por favor, repita",
+
+        "meaning": "Please repeat",
+
+        "pronunciation": "por fah-VOR reh-PEE-ta",
+
+        "communicative_function": "asking repetition",
+
+        "difficulty": 3,
+
+        "requires": []
+    },
+    {
+        "id": "water_word",
+
+        "type": "vocabulary_chunk",
+
+        "language": "spanish",
+
+        "text": "agua",
+
+        "meaning": "water",
+
+        "pronunciation": "AH-gwa",
+
+        "communicative_function": "food vocabulary",
+
+        "difficulty": 1,
+
+        "requires": []
+    },
+    {
+        "id": "bill_please",
+
+        "type": "pattern_chunk",
+
+        "language": "spanish",
+
+        "text": "La cuenta, por favor",
+
+        "meaning": "The bill, please",
+
+        "pronunciation": "la KWEN-ta por fah-VOR",
+
+        "communicative_function": "asking for bill",
+
+        "difficulty": 2,
+
+        "requires": [
+            "thank_you"
+        ]
+    }
+]
